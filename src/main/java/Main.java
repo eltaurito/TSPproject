@@ -47,11 +47,21 @@ public class Main {
             }
         }
 
+        //Class used to check the path's validation
+        Validator val=new Validator();
+
+
+        //Starting with NB
         Route routeNb=NearestNeighboor.nearestNeighboor(nNodes,nodes,matrix);
         System.out.println("Distance NB "+routeNb.getRealDistance());
+        System.out.println(val.Validate(routeNb.getRoute()));
+        //***********************************
+
+        //Start with 2opt with NBroute as input
         Route nuova=new twoOpt(matrix,nodes,routeNb).start();
         System.out.println("Distance 2OPT "+nuova.getRealDistance());
-
+        System.out.println(val.Validate(nuova.getRoute()));
+        //***********************************
         //Route visitednew=new twoOpt(matrix,nodes,routeNb).start();
         //System.out.println("Distance 2OPT "+visitednew.getRealDistance());
         //System.out.println("DIstance 2opt "+visitednew.getDistance());

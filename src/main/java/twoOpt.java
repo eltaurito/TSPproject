@@ -9,9 +9,11 @@ public class twoOpt {
     int[][] matrix;
     Point[] nodes;
     /*
+    *************************THIS IS IMPORTANT************
     The size of the route is n° of cities + 1, because it contains
     the first city in the first and in the last position
      */
+
     Point[] route;
 
     public twoOpt(int[][] matrix,Point[] nodes,Route route) {
@@ -38,8 +40,6 @@ public class twoOpt {
             maxGain = 0;
             for (int i = 0; i < size - 2; i++) {
                 for (int j = i + 1; j < size -1; j++) {
-                    //if((j-i)==1)
-                    //    continue;
                     gain = calculateGain(route[i],route[i+1],route[j],route[j+1]);
                     if (gain < 0 && gain < maxGain) {
                         maxGain = gain;
@@ -48,7 +48,6 @@ public class twoOpt {
                     }
                 }
             }
-            //System.out.println("Maxgain: "+maxGain);
             optswap( maxI, maxJ);
         }while(maxGain != 0);
         return new Route(matrix,route);

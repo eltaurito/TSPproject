@@ -57,7 +57,7 @@ public class Route {
     }
     public int getRealDistance(){
         int distance=0;
-        for (int i=0; i <route.length-2 ; i++) {
+        for (int i=0; i <route.length-1 ; i++) {
             int cur=route[i].getId()-1;
             int next=route[i+1].getId()-1;
             distance+=matrix[cur][next];
@@ -73,7 +73,6 @@ public class Route {
              route) {
            out.println(p.getX()+"-"+p.getY());
         }
-        out.println(route[0].getX()+"-"+route[0].getY());
         out.close();
 
     }
