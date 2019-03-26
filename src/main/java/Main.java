@@ -7,12 +7,36 @@ public class Main {
     static int[][] matrix=null;
 
     public static void main(String[] args) throws IOException {
+        Point[] initialCities=null;
         String filename=args[0];
+        initialCities=getCities(initialCities,filename);
+        initializeMatrix(initialCities);
+
+        //Class used to check the path's validation
+        Validator val=new Validator();
+
+
+        //Starting with NB
+        Route routeNb=NearestNeighboor.nearestNeighboor(initialCities);
+        System.out.println("Distance NB "+routeNb.getRealDistance());
+        System.out.println(val.Validate(routeNb.getRoute()));
+        //***********************************
+
+        //Start with 2opt with NBroute as input
+        Route nuova=new twoOpt(routeNb).start();
+        System.out.println("Distance 2OPT "+nuova.getRealDistance());
+        System.out.println(val.Validate(nuova.getRoute()));
+        //***********************************
+
+
+
+        routeNb.printToFile("C:\\Users\\Davide\\Desktop\\NB.txt");
+        nuova.printToFile("C:\\Users\\Davide\\Desktop\\output2.txt");
+
+    }
+
+    private static Point[] getCities(Point[] nodes,String filename) throws IOException {
         FileReader file=null;
-        Point[] nodes=null;
-
-
-        int nNodes=0;
         try {
             file=new FileReader(Main.class.getResource(filename).getFile());
         } catch (Exception e) {
@@ -26,7 +50,7 @@ public class Main {
             if (line.equals("EOF")) break;
 
             if (i == 4) {
-                nNodes=Integer.parseInt(line.split(" ")[1]); //n of cities
+                int nNodes=Integer.parseInt(line.split(" ")[1]); //n of cities
                 nodes=new Point[nNodes];
                 matrix=new int[nNodes][nNodes];
             }
@@ -41,35 +65,15 @@ public class Main {
             i++;
 
         }
-        for (int j=0; j < nNodes; j++) {                    //create matrix of distance
-            for (int k=0; k < nNodes; k++) {
+        return nodes;
+    }
+
+    private static void initializeMatrix(Point[] nodes) {
+        for (int j=0; j < nodes.length; j++) {                    //create matrix of distance
+            for (int k=0; k < nodes.length; k++) {
                 matrix[j][k]=Point.euclideanDistance(nodes[j],nodes[k]);
             }
         }
-
-        //Class used to check the path's validation
-        Validator val=new Validator();
-
-
-        //Starting with NB
-        Route routeNb=NearestNeighboor.nearestNeighboor(nNodes,nodes,matrix);
-        System.out.println("Distance NB "+routeNb.getRealDistance());
-        System.out.println(val.Validate(routeNb.getRoute()));
-        //***********************************
-
-        //Start with 2opt with NBroute as input
-        Route nuova=new twoOpt(matrix,nodes,routeNb).start();
-        System.out.println("Distance 2OPT "+nuova.getRealDistance());
-        System.out.println(val.Validate(nuova.getRoute()));
-        //***********************************
-        //Route visitednew=new twoOpt(matrix,nodes,routeNb).start();
-        //System.out.println("Distance 2OPT "+visitednew.getRealDistance());
-        //System.out.println("DIstance 2opt "+visitednew.getDistance());
-
-
-        routeNb.printToFile("C:\\Users\\Davide\\Desktop\\NB.txt");
-        nuova.printToFile("C:\\Users\\Davide\\Desktop\\output2.txt");
-
     }
 
 
