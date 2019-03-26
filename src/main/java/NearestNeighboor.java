@@ -13,7 +13,7 @@ public class NearestNeighboor {
         Point cityStart=cities.get(id_rnd);         //NB starting by that city
 
         //Remove comment if you wanna start from first city
-        cityStart=cities.get(37);
+        cityStart=cities.get(939);
 
 
         Point firstCity=new Point(cityStart.getId(),cityStart.getX(),cityStart.getY()); //Saving the starting city
