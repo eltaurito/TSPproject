@@ -49,10 +49,11 @@ public class twoOpt {
     //****CHECK THIS FUNCTION (how this gain works?) ******
     //a:i b:i+1 c:j d:j+1
     private int calculateGain(Point a,Point b,Point c,Point d) {
-        int ab=Main.matrix[a.getId()-1][b.getId()-1];
-        int cd=Main.matrix[c.getId()-1][d.getId()-1];
-        int ac=Main.matrix[a.getId()-1][c.getId()-1];
-        int bd=Main.matrix[b.getId()-1][d.getId()-1];
+
+        int ab=Main.getDistance(a,b);
+        int cd=Main.getDistance(c,d);
+        int ac=Main.getDistance(a,c);
+        int bd=Main.getDistance(b,d);
         return (ac+bd)-(ab+cd);
 
     }

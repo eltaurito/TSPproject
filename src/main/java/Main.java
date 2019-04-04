@@ -28,10 +28,16 @@ public class Main {
         System.out.println(val.Validate(nuova.getRoute()));
         //***********************************
 
+        //Start with SA with 2opt as input
+        //Route nuova2=new SimulatedAnnealing(nuova.getRoute()).start();
+        //System.out.println("Distance SA "+nuova2.getRealDistance());
+        //System.out.println(val.Validate(nuova2.getRoute()));
+        //***********************************
 
 
         routeNb.printToFile("C:\\Users\\Davide\\Desktop\\NB.txt");
-        nuova.printToFile("C:\\Users\\Davide\\Desktop\\output2.txt");
+        nuova.printToFile("C:\\Users\\Davide\\Desktop\\2OPT.txt");
+        //nuova2.printToFile("C:\\Users\\Davide\\Desktop\\SA.txt");
 
     }
 
@@ -67,7 +73,12 @@ public class Main {
         }
         return nodes;
     }
-
+    public static int getDistance(Point city_from,Point city_to){
+        return matrix[city_from.getId()-1][city_to.getId()-1];
+    }
+    public static int getDistance(int index_from,int index_to){
+        return matrix[index_from][index_to];
+    }
     private static void initializeMatrix(Point[] nodes) {
         for (int j=0; j < nodes.length; j++) {                    //create matrix of distance
             for (int k=0; k < nodes.length; k++) {
