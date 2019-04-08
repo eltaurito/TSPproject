@@ -13,7 +13,7 @@ public class NearestNeighboor {
         Point cityStart=cities.get(id_rnd);         //NB starting by that city
 
         //Remove comment if you wanna start from first city
-        cityStart=cities.get(939);
+        cityStart=cities.get(0);
 
 
         Point firstCity=new Point(cityStart.getId(),cityStart.getX(),cityStart.getY()); //Saving the starting city
@@ -26,6 +26,7 @@ public class NearestNeighboor {
 
         while (!cities.isEmpty()) {
             for (Point city : cities) {
+
                 locDistance=Main.matrix[cityStart.getId()-1][city.getId()-1];
                 if (locDistance < min) {
                     min=locDistance;

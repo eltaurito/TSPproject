@@ -80,6 +80,20 @@ public class Route {
         out.close();
 
     }
+    public void printToFileTour(String path,String filename,int length) throws FileNotFoundException {
+
+        PrintWriter out=new PrintWriter(path);
+        out.write("NAME : "+filename+".opt.tour");
+        out.write("\nCOMMENT : ");
+        out.write("\nTYPE : TOUR");
+        out.write("\nDIMENSION : "+length);
+        out.write("\nTOUR SECTION\n");
+        for (Point p : route) {
+            out.println(p.getId());
+        }
+        out.close();
+
+    }
 
 
 }

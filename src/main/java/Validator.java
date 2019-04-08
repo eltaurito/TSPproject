@@ -19,16 +19,22 @@ public class Validator { List<Point> cities;
         List<Point> visited=new ArrayList<>();
 
         for (int i=0; i < route.length-2 ; i++) {
-            if(visited.contains(route[i]))
+            if(visited.contains(route[i])){
+                System.out.println("Multiple city contained");
                 return false;
+
+            }
+
             visited.add(route[i]);
 
         }
         Point a=route[route.length-1];
         Point b=route[0];
-        if((a.getX()==b.getX())&&(a.getY()==b.getY()))
-            return true;
+        if((a.getX()==b.getX())&&(a.getY()==b.getY())){
 
+            return true;}
+
+        System.out.println("Not a closed tour");
         return false;
     }
 }

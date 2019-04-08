@@ -40,6 +40,18 @@ public class twoOpt {
                     }
                 }
             }
+            /*
+            for (int i=0; i <size-2 ; i++) {
+                for (int j=0; j < CandidateList.nNeighbours; j++) {
+                    gain=calculateGain(tour[i],tour[i+1],tour[j],tour[j+1]);
+                    if (gain < 0 && gain < maxGain) {
+                        maxGain=gain;
+                        maxI=i;
+                        maxJ=j;
+                    }
+                }
+            }
+            */
             optswap(maxI,maxJ);
         } while (maxGain != 0);
         return new Route(tour);
