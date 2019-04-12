@@ -9,8 +9,9 @@ public class Main {
     static long seed=System.currentTimeMillis();
     static String filename="";
     static final Random r=new Random();
+    static long beginTime=System.currentTimeMillis();
     public static void main(String[] args) throws IOException {
-        System.out.println("Taurisano TSP Opt");
+
         Point[] initialCities=null;
         if(args.length==0)
             System.out.println("java -jar AlgoritmiProgetto.jar filename.tsp [seed]");
@@ -18,7 +19,7 @@ public class Main {
             filename=args[0];
         if(args.length==2)
             seed=Long.parseLong(args[1]);
-
+        System.out.println("Taurisano TSP Opt: "+filename);
         initialCities=getCities(initialCities,filename);
         initializeMatrix(initialCities);
         //Class used to check the path's validation
@@ -29,14 +30,14 @@ public class Main {
 
         //Starting with NB
         Route routeNb=NearestNeighboor.nearestNeighboor(initialCities);
-        System.out.println("Distance NB "+routeNb.getRealDistance());
-        System.out.println(val.Validate(routeNb.getRoute()));
+        //System.out.println("Distance NB "+routeNb.getRealDistance());
+        //System.out.println(val.Validate(routeNb.getRoute()));
         //***********************************
 
         //Start with 2opt with NBroute as input
         Route nuova=new twoOpt(routeNb).start();
-        System.out.println("Distance 2OPT "+nuova.getRealDistance());
-        System.out.println(val.Validate(nuova.getRoute()));
+        //System.out.println("Distance 2OPT "+nuova.getRealDistance());
+        //System.out.println(val.Validate(nuova.getRoute()));
         //***********************************
 
         //Start with SA with 2opt as input
@@ -52,6 +53,7 @@ public class Main {
         nuova2.printToFileTour("SA_"+filename+".tour",filename,initialCities.length);
         TspManager tsp=new TspManager();
         tsp.writeSolution("Davide_Taurisano_results.txt");
+
     }
 
     private static Point[] getCities(Point[] nodes,String filename) throws IOException {
@@ -61,7 +63,7 @@ public class Main {
             //file=new FileReader(Main.class.getResource(filename).getFile());
             file=new FileReader(new File(filename));
         } catch (Exception e) {
-            System.out.println("File not found.");
+            System.out.println(filename+" File not found.");
         }
 
         BufferedReader b=new BufferedReader(file);

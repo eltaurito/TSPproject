@@ -28,10 +28,10 @@ public class SimulatedAnnealing {
         int size=Main.bestResult;
 
 
-        long beginTime=System.currentTimeMillis();
+        //long beginTime=System.currentTimeMillis();
 
         //Must implement a condition
-        while (((System.currentTimeMillis()-beginTime) < 10000) && (bestTour.getRealDistance() != size)) {
+        while (((System.currentTimeMillis()-Main.beginTime) < 180000) && (bestTour.getRealDistance() != size)) {
             // System.out.println(temp);
             for (int i=0; i < 100; i++) {
 
