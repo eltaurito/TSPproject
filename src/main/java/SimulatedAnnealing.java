@@ -21,19 +21,21 @@ public class SimulatedAnnealing {
     public Route start() {
         //Is common to start with a temp of 100
         //Alpha: Value of temp decreasing
-        double temp=1000, alpha=0.97;
-        Point[] bestTour=tour.clone();
+
+        double temp=Main.r.nextInt(100)+100, alpha=(Main.r.nextDouble()*0.07)+0.90;
+        Route bestTour=new Route(tour.clone());
+        //Point[] bestTour=tour.clone();
         int size=Main.bestResult;
+
 
         long beginTime=System.currentTimeMillis();
 
         //Must implement a condition
-        while (((System.currentTimeMillis()-beginTime) < 140000 )&& (new Route(bestTour).getRealDistance() != size)) {
-            //System.out.println(temp);
+        while (((System.currentTimeMillis()-beginTime) < 10000) && (bestTour.getRealDistance() != size)) {
+            // System.out.println(temp);
             for (int i=0; i < 100; i++) {
-                Point[] lista=swap(tour);
-                //System.out.println(val.Validate(lista));
-                Point[] tourTwoOpt=new twoOpt(new Route(lista)).start().getRoute();
+
+                Point[] tourTwoOpt=new twoOpt(new Route(swapAlt(tour))).start().getRoute();
 
                 int distNext=new Route(tourTwoOpt).getRealDistance();
                 int distCurrent=new Route(tour).getRealDistance();
@@ -41,21 +43,18 @@ public class SimulatedAnnealing {
 
                 if (distNext < distCurrent) {
                     tour=tourTwoOpt;
-                    if (distNext < new Route(bestTour).getRealDistance()) {
+                    if (distNext < bestTour.getRealDistance()) {
                         //System.out.println(distNext);
-                        bestTour=tourTwoOpt;
+                        bestTour=new Route(tourTwoOpt);
 
                     }
                 } else if (randomVerify(distNext,distCurrent,temp)) {
                     tour=tourTwoOpt;
-
                 }
-
             }
             temp*=alpha;
-
         }
-        return new Route(bestTour);
+        return bestTour;
     }
 
     private boolean randomVerify(int distNext,int distCurrent,double temp) {
@@ -75,34 +74,41 @@ public class SimulatedAnnealing {
         cities[cities.length-1]=cities[0];
 
 
-        List<Integer> position=new ArrayList<>();
+        int[] position=new int[4];
         //System.out.println("Start: "+currentTour[0]);
 
         //a     b       c       d
         //0     1       2       3
-        ThreadLocalRandom.current().ints(1,currentTour.length-1).distinct().limit(4).forEach(e->position.add(e));
-        Collections.sort(position);
+        // ThreadLocalRandom.current().setSeed(Main.seed);
+        //ThreadLocalRandom.current().ints(1,currentTour.length-1).distinct().limit(4).forEach(e->position.add(e));
+
+        do {
+            position[0]=Main.r.nextInt(currentTour.length-1);
+            position[1]=Main.r.nextInt(currentTour.length-1);
+            position[2]=Main.r.nextInt(currentTour.length-1);
+            position[3]=Main.r.nextInt(currentTour.length-1);
+        } while (position[1] < position[0] || position[2] < position[1] || position[3] < position[2]);
         int a=0, b=1, c=2, d=3;
 
         int turn=0;
 
-        for (int i=0; i <= position.get(a); i++) {
+        for (int i=0; i <= position[a]; i++) {
             cities[i]=currentTour[i];
             turn++;
         }
-        for (int i=position.get(c)+1; i <= position.get(d); i++) {
+        for (int i=position[c]+1; i <= position[d]; i++) {
             cities[turn]=currentTour[i];
             turn++;
         }
-        for (int i=position.get(b)+1; i <= position.get(c); i++) {
+        for (int i=position[b]+1; i <= position[c]; i++) {
             cities[turn]=currentTour[i];
             turn++;
         }
-        for (int i=position.get(a)+1; i <= position.get(b); i++) {
+        for (int i=position[a]+1; i <= position[b]; i++) {
             cities[turn]=currentTour[i];
             turn++;
         }
-        for (int i=position.get(d)+1; i < currentTour.length; i++) {
+        for (int i=position[d]+1; i < currentTour.length; i++) {
             cities[i]=currentTour[i];
             //turn++;
         }
@@ -114,6 +120,65 @@ public class SimulatedAnnealing {
 
 
     }
+
+    private Point[] swapAlt(Point[] currentTour) {
+        Point[] cities=new Point[currentTour.length];
+        cities[0]=tour[0];
+        cities[cities.length-1]=cities[0];
+
+
+        List<Integer> position=new ArrayList<>();
+        //System.out.println("Start: "+currentTour[0]);
+
+        //a     b       c       d
+        //0     1       2       3
+        ThreadLocalRandom.current().ints(1,currentTour.length-1).distinct().limit(4).forEach(e->position.add(e));
+        Collections.sort(position);
+        int a=0, b=1, c=2, d=3;
+
+
+        int turn=0;
+        cities[a]=currentTour[position.get(a)];
+        turn++;
+        for (int i=position.get(c)+1; i <= position.get(d); i++) {
+            cities[turn]=currentTour[i];
+            turn++;
+        }
+        for (int i=position.get(b)+1; i <= position.get(c); i++) {
+            cities[turn]=currentTour[i];
+            turn++;
+        }
+
+        for (int i=position.get(a)+1; i <= position.get(b); i++) {
+            cities[turn]=currentTour[i];
+            turn++;
+        }
+        for (int i=position.get(d)+1; i < currentTour.length-1; i++) {
+            cities[turn]=currentTour[i];
+            turn++;
+        }
+        for (int i=0; i < position.get(a); i++) {
+            cities[turn]=currentTour[i];
+            turn++;
+        }
+
+        cities[currentTour.length-1]=cities[0];
+
+//        for (int i=0; i <= position.get(a); i++) {
+//            cities[i]=currentTour[i];
+//            turn++;
+//        }
+
+
+        boolean verified=new Validator().Validate(cities);
+        if (!verified) {
+            int x=0;
+        }
+        return cities;
+
+
+    }
+
 
 }
 

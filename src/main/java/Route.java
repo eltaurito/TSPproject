@@ -72,6 +72,7 @@ public class Route {
     }
 
 
+
     public void printToFile(String path) throws FileNotFoundException {
         PrintWriter out=new PrintWriter(path);
         for (Point p : route) {
@@ -80,9 +81,13 @@ public class Route {
         out.close();
 
     }
+    public double distLastToFirst(){
+        return Main.getDistance(route[0],route[route.length-1]);
+    }
     public void printToFileTour(String path,String filename,int length) throws FileNotFoundException {
 
         PrintWriter out=new PrintWriter(path);
+        //out.write("SEED: "+Main.seed+"\n");
         out.write("NAME : "+filename+".opt.tour");
         out.write("\nCOMMENT : ");
         out.write("\nTYPE : TOUR");

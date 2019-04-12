@@ -9,11 +9,12 @@ public class NearestNeighboor {
 
         ArrayList<Point> cities=new ArrayList<>(Arrays.asList(nodes));
         Route newRoute=new Route();
-        int id_rnd=new Random().nextInt((nodes.length-1))+1;
+
+        int id_rnd=Main.r.nextInt((nodes.length-1))+1;
         Point cityStart=cities.get(id_rnd);         //NB starting by that city
 
         //Remove comment if you wanna start from first city
-        cityStart=cities.get(0);
+        //cityStart=cities.get(42);
 
 
         Point firstCity=new Point(cityStart.getId(),cityStart.getX(),cityStart.getY()); //Saving the starting city

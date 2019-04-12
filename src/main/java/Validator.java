@@ -20,7 +20,8 @@ public class Validator { List<Point> cities;
 
         for (int i=0; i < route.length-2 ; i++) {
             if(visited.contains(route[i])){
-                System.out.println("Multiple city contained");
+
+                System.out.println("Multiple city contained: "+route[i]);
                 return false;
 
             }
