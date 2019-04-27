@@ -31,11 +31,11 @@ public class SimulatedAnnealing {
         //long beginTime=System.currentTimeMillis();
 
         //Must implement a condition
-        while (((System.currentTimeMillis()-Main.beginTime) < 180000) && (bestTour.getRealDistance() != size)) {
+        while (((System.currentTimeMillis()-Main.beginTime) < 15000) && (bestTour.getRealDistance() != size)) {
             // System.out.println(temp);
             for (int i=0; i < 100; i++) {
 
-                Point[] tourTwoOpt=new twoOpt(new Route(swapAlt(tour))).start().getRoute();
+                Point[] tourTwoOpt=new twoOpt(new Route(swap(tour))).start().getRoute();
 
                 int distNext=new Route(tourTwoOpt).getRealDistance();
                 int distCurrent=new Route(tour).getRealDistance();
@@ -58,12 +58,11 @@ public class SimulatedAnnealing {
     }
 
     private boolean randomVerify(int distNext,int distCurrent,double temp) {
-        double r=new Random().nextDouble();
         double difference=-((double) distNext-(double) distCurrent);
         double d=Math.pow(Math.E,(difference / temp));
 
         //d=difference/temp;
-        return (r < d);
+        return (Main.r.nextDouble() < d);
     }
 
     //MUST: remember that the start city is stored two times

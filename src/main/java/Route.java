@@ -96,6 +96,8 @@ public class Route {
         for (Point p : route) {
             out.println(p.getId());
         }
+        out.println("-1");
+        out.println("EOF");
         out.close();
 
     }
