@@ -4,6 +4,8 @@ Copied just for a school's project
 
  */
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,9 +21,9 @@ public class SimulatedAnnealing {
     }
 
     public Route start() {
+        PrintWriter out=null;
         //Is common to start with a temp of 100
         //Alpha: Value of temp decreasing
-
         double temp=Main.r.nextInt(100)+100, alpha=(Main.r.nextDouble()*0.07)+0.90;
         Route bestTour=new Route(tour.clone());
         //Point[] bestTour=tour.clone();
@@ -31,22 +33,21 @@ public class SimulatedAnnealing {
         //long beginTime=System.currentTimeMillis();
 
         //Must implement a condition
-        while (((System.currentTimeMillis()-Main.beginTime) < 15000) && (bestTour.getRealDistance() != size)) {
+        while (((System.currentTimeMillis()-Main.beginTime) < 160000) && (bestTour.getRealDistance() != size)) {
             // System.out.println(temp);
             for (int i=0; i < 100; i++) {
 
                 Point[] tourTwoOpt=new twoOpt(new Route(swap(tour))).start().getRoute();
 
                 int distNext=new Route(tourTwoOpt).getRealDistance();
-                int distCurrent=new Route(tour).getRealDistance();
 
+                int distCurrent=new Route(tour).getRealDistance();
 
                 if (distNext < distCurrent) {
                     tour=tourTwoOpt;
                     if (distNext < bestTour.getRealDistance()) {
                         //System.out.println(distNext);
                         bestTour=new Route(tourTwoOpt);
-
                     }
                 } else if (randomVerify(distNext,distCurrent,temp)) {
                     tour=tourTwoOpt;

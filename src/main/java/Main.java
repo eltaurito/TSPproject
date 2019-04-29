@@ -22,9 +22,10 @@ public class Main {
         }
         if (args.length == 2) {
             seed=Long.parseLong(args[1]);
-            System.out.println("Seed: "+seed);
+
 
         }
+        System.out.println("Seed: "+seed);
         r.setSeed(seed);
         initialCities=getCities(initialCities,filename);
         initializeMatrix(initialCities);
