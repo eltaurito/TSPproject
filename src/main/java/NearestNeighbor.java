@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class NearestNeighboor {
+public class NearestNeighbor {
 
-    public static Route nearestNeighboor(Point[] nodes) {
+    public static Route nearestNeighbor(Point[] nodes) {
         int locDistance=0, min=Integer.MAX_VALUE, i=1;
 
         ArrayList<Point> cities=new ArrayList<>(Arrays.asList(nodes));

@@ -24,29 +24,35 @@ public class TspManager {
                         new Solution(
                                 strings[0],
                                 Long.parseLong(strings[1]),
-                                Integer.parseInt(strings[2])
+                                Integer.parseInt(strings[2]),
+                                Integer.parseInt(strings[3])
                         )
                 );
 
             }
 
-            Solution newSolution=new Solution(Main.filename,Main.seed,Main.bestResult);
+            Solution newSolution=new Solution(Main.filename,Main.seed,Main.bestResult,Main.iterationsNumber);
             for (Solution solution : solutions) {
                 if (solution.fileName.equals(newSolution.fileName)) {
                     found=true;
                     if (solution.distance > newSolution.distance) {
                         solution.seed=newSolution.seed;
                         solution.distance=newSolution.distance;
+                        solution.iterationNumber=newSolution.iterationNumber;
                     }
                 }
             }
             if(!found)
                 solutions.add(newSolution);
         }
+        else{
+            Solution newSolution=new Solution(Main.filename,Main.seed,Main.bestResult,Main.iterationsNumber);
+            solutions.add(newSolution);
+        }
         try {
             PrintWriter out=new PrintWriter(path);
             for (Solution s : solutions) {
-                out.write(s.fileName+"-"+s.seed+"-"+s.distance+"\n");
+                out.write(s.fileName+"-"+s.seed+"-"+s.distance+"-"+s.iterationNumber+"\n");
             }
 
 
@@ -65,10 +71,23 @@ class Solution {
     long seed;
     int distance;
 
+    public int getIterationNumber() {
+        return iterationNumber;
+    }
+
+    int iterationNumber;
+
     public Solution(String fileName,long seed,int distance) {
         this.fileName=fileName;
         this.seed=seed;
         this.distance=distance;
+    }
+
+    public Solution(String fileName,long seed,int distance,int iterationNumber) {
+        this.fileName=fileName;
+        this.seed=seed;
+        this.distance=distance;
+        this.iterationNumber=iterationNumber;
     }
 
     public String getFileName() {

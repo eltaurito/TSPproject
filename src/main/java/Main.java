@@ -11,7 +11,8 @@ public class Main {
     static String filename="";
     static final Random r=new Random();
     static long beginTime=System.currentTimeMillis();
-
+    public static int iterationsNumber=0;
+    public static int iterationsNumberArg=0;
     public static void main(String[] args) throws IOException {
 
         Point[] initialCities=null;
@@ -20,10 +21,13 @@ public class Main {
             filename=args[0];
             System.out.println("Taurisano TSP Opt: "+filename);
         }
-        if (args.length == 2) {
+        if (args.length >= 2) {
             seed=Long.parseLong(args[1]);
 
-
+        }
+        if (args.length >= 3) {
+            iterationsNumberArg=Integer.parseInt(args[2]);
+            System.out.println("Iterations to be done: "+iterationsNumberArg);
         }
         System.out.println("Seed: "+seed);
         r.setSeed(seed);
@@ -32,29 +36,24 @@ public class Main {
 
         Validator val=new Validator();  //Class used to check the path's validation
 
-        //Starting with NB
-        Route routeNb=NearestNeighboor.nearestNeighboor(initialCities);
+        Route routeNb=NearestNeighbor.nearestNeighbor(initialCities);
         System.out.println("Distance NB "+routeNb.getRealDistance());
-        //System.out.println(val.Validate(routeNb.getRoute()));
-        //***********************************
 
-        //Start with 2opt with NBroute as input
-        Route nuova=new twoOpt(routeNb).start();
+
+        Route nuova=new TwoOpt(routeNb).start();
         System.out.println("Distance 2OPT "+nuova.getRealDistance());
-        //System.out.println(val.Validate(nuova.getRoute()));
-        //***********************************
 
-        //Start with SA with 2opt as input
+
+
         Route nuova2=new SimulatedAnnealing(nuova.getRoute()).start();
         bestResult=nuova2.getRealDistance();
-        System.out.println("Distance SA "+(bestResult));
-        //System.out.println(val.Validate(nuova2.getRoute()));
-        //***********************************
+        System.out.println("Distance SA "+(bestResult)+"\nNumber of iterations: "+nuova2.getIterationNumber());
+
 
 
         nuova2.printToFileTour("OPT_"+filename+".tour",filename,initialCities.length);
-        TspManager tsp=new TspManager();
-        tsp.writeSolution("Davide_Taurisano_results.txt");
+        //TspManager tsp=new TspManager();
+       // tsp.writeSolution("Davide_Taurisano_results.txt");
 
         System.out.println("EXECUTION TIME: "+(System.currentTimeMillis()-beginTime));
     }
@@ -63,8 +62,8 @@ public class Main {
 
         FileReader file=null;
         try {
-            //  file=new FileReader(Main.class.getResource(filename).getFile());
-            file=new FileReader(new File(filename));
+            file=new FileReader(Main.class.getResource(filename).getFile());
+            //file=new FileReader(new File(filename));
         } catch (Exception e) {
             System.out.println(filename+" File not found.");
         }

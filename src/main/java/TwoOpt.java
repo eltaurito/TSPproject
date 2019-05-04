@@ -1,7 +1,7 @@
 import static sun.nio.ch.IOStatus.check;
 
 
-public class twoOpt {
+public class TwoOpt {
     /*
     *************************THIS IS IMPORTANT************
     The size of the tour is n° of cities + 1, because it contains
@@ -10,7 +10,7 @@ public class twoOpt {
 
     Point[] tour;
 
-    public twoOpt(Route tour) {
+    public TwoOpt(Route tour) {
         this.tour=tour.getRoute().clone();
     }
 
@@ -40,18 +40,6 @@ public class twoOpt {
                     }
                 }
             }
-            /*
-            for (int i=0; i <size-2 ; i++) {
-                for (int j=0; j < CandidateList.nNeighbours; j++) {
-                    gain=calculateGain(tour[i],tour[i+1],tour[j],tour[j+1]);
-                    if (gain < 0 && gain < maxGain) {
-                        maxGain=gain;
-                        maxI=i;
-                        maxJ=j;
-                    }
-                }
-            }
-            */
             optswap(maxI,maxJ);
         } while (maxGain != 0);
         return new Route(tour);

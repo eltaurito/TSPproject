@@ -40,10 +40,5 @@ public class Point {
                 this.y);
     }
 
-    public static int getEucled(Point node,Point node1) {
-        double deltaX=Math.pow(node.getX()-node1.getX(),2);
-        double deltaY=Math.pow(node.getY()-node1.getY(),2);
-        double res=(Math.sqrt(deltaX+deltaY));
-        return (int) (res+0.5);
-    }
+
 }

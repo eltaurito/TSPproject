@@ -8,6 +8,14 @@ public class Route {
     private int distance;
     private int cnt;
 
+    public int getIterationNumber() {
+        return iterationNumber;
+    }
+
+    private int iterationNumber;
+
+
+
     public Route() {
         distance=0;
         cnt=0;
@@ -99,8 +107,10 @@ public class Route {
         out.println("-1");
         out.println("EOF");
         out.close();
-
     }
 
 
+    public void setIterationNumber(int iterationNumber) {
+        this.iterationNumber=iterationNumber;
+    }
 }
