@@ -5,15 +5,24 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Main {
-    static int[][] matrix=null;
-    static int bestResult=0;
-    static long seed=System.currentTimeMillis();
-    static String filename="";
-    static final Random r=new Random();
-    static long beginTime=System.currentTimeMillis();
-    public static int iterationsNumber=0;
-    public static int iterationsNumberArg=0;
+    static int[][] matrix;
+    static int bestResult;
+    static long seed;
+    static String filename;
+    static  Random r;
+    static long beginTime;
+    public static int iterationsNumber;
+    public static int iterationsNumberArg;
+
     public static void main(String[] args) throws IOException {
+        matrix=null;
+        bestResult=0;
+        seed=System.currentTimeMillis();
+        filename="";
+        r=new Random();
+        beginTime=System.currentTimeMillis();
+        iterationsNumber=0;
+        iterationsNumberArg=0;
 
         Point[] initialCities=null;
         if (args.length == 0) System.out.println("java -jar AlgoritmiProgetto.jar filename.tsp [seed]");
